@@ -79,8 +79,14 @@ const Step2 = ({ onNext, onPrev }) => {
       </div>
 
       {/* toggle button begins */}
-      <div className="mt-5 w-full flex justify-center bg-LightGray rounded-lg py-2">
-        <button>toggle</button>
+      <div className="mt-5 w-full flex justify-center  bg-slate-100 rounded-lg py-2">
+      <span class="text-md text-MarineBlue ubuntu-bold flex items-center mr-2">Monthly</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          
+          <input type="checkbox" value="" class="sr-only peer" />
+          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+          <span class="text-md text-MarineBlue ubuntu-bold flex items-center ml-2">Yearly</span>
+        </label>
       </div>
       <div className="mt-10 flex justify-between items-end">
         <button
