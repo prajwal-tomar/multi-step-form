@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Ubuntu Bold";
+  src: url("./assets/fonts/Ubuntu-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Import and define the Ubuntu Medium font */
+@font-face {
+  font-family: "Ubuntu Medium";
+  src: url("./assets/fonts/ubuntu-medium.ttf") format("truetype");
+  font-weight: medium;
+  font-style: normal;
+}
+
+/* Import and define the Ubuntu Regular font */
+@font-face {
+  font-family: "Ubuntu Regular";
+  src: url("./assets/fonts/ubuntu-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.ubuntu-bold {
+  font-family: "Ubuntu Bold", sans-serif;
+}
+
+.ubuntu-medium {
+  font-family: "Ubuntu Medium", sans-serif;
+}
+
+.ubuntu-regular {
+  font-family: "Ubuntu Regular", sans-serif;
+}
