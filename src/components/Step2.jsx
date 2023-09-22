@@ -1,21 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import iconArcade from "../assets/images/icon-arcade.svg";
-import iconAdvanced from "../assets/images/icon-advanced.svg";
+import iconArcade from "../assets/images/icon-Arcade.svg";
+import iconAdvanced from "../assets/images/icon-Advanced.svg";
 import iconPro from "../assets/images/icon-pro.svg";
 
-const Step2 = ({ onNext, onPrev }) => {
-  const { handleSubmit } = useForm();
+const Step2 = ({ onNext, onPrev, formData, setFormData }) => {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
   const [selectedMembership, setSelectedMembership] = useState(null);
+  const [billingType, setBillingType] = useState("monthly");
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      membershipType: selectedMembership, // Initial value of selected membership
+      billingType: billingType, // Default billing type
+    });
+    console.log(formData);
+  }, []);
 
   const handleMembershipChange = (value) => {
     setSelectedMembership(value);
+    setFormData({
+      ...formData,
+      membershipType: value,
+    });
+    setError(null);
     console.log(value);
   };
 
+  const handleBillingTypeChange = (event) => {
+    const newBillingType = event.target.checked ? "yearly" : "monthly"; // if checked is true then yearly, else by default it is monthly
+    setBillingType(newBillingType);
+    setFormData({
+      ...formData,
+      billingType: newBillingType,
+    });
+    console.log(newBillingType);
+  };
+
   const onSubmitStep2 = (data) => {
+    if (selectedMembership) {
+      setFormData({
+        ...formData,
+        membershipType: selectedMembership,
+        billingType: billingType,
+      });
+      onNext();
+    } else {
+      setError("Please select a membership"); // Display error if no membership is selected
+    }
     console.log(data);
-    onNext();
   };
 
   return (
@@ -24,15 +63,16 @@ const Step2 = ({ onNext, onPrev }) => {
       <p className="text-slate-500">
         You have the option of monthly or yearly billing.
       </p>
-      <div className="space-x-2 flex">
+      <div className="flex flex-col">
+        <div className="space-x-8 flex">
         <button
           type="button"
           className={`flex items-center border rounded-lg cursor-pointer transition duration-300 ease-in-out hover:border-PurplishBlue focus:outline-none ${
-            selectedMembership === "arcade"
+            (selectedMembership === "Arcade"
               ? "border-PurplishBlue"
-              : "border-gray-300"
+              : "border-gray-300")
           }`}
-          onClick={() => handleMembershipChange("arcade")}
+          onClick={() => handleMembershipChange("Arcade")}
         >
           <div className="flex flex-col w-[130px] h-[150px] items-start justify-between p-5">
             <img src={iconArcade} alt="" />
@@ -45,11 +85,11 @@ const Step2 = ({ onNext, onPrev }) => {
         <button
           type="button"
           className={`flex items-center border rounded-lg cursor-pointer transition duration-300 ease-in-out hover:border-PurplishBlue focus:outline-none ${
-            selectedMembership === "advanced"
+            (selectedMembership === "Advanced"
               ? "border-PurplishBlue"
-              : "border-gray-300"
+              : "border-gray-300")
           }`}
-          onClick={() => handleMembershipChange("advanced")}
+          onClick={() => handleMembershipChange("Advanced")}
         >
           <div className="flex flex-col w-[130px] h-[150px] items-start justify-between p-5">
             <img src={iconAdvanced} alt="" />
@@ -62,9 +102,9 @@ const Step2 = ({ onNext, onPrev }) => {
         <button
           type="button"
           className={`flex items-center border rounded-lg cursor-pointer transition duration-300 ease-in-out hover:border-PurplishBlue focus:outline-none ${
-            selectedMembership === "pro"
+            (selectedMembership === "pro"
               ? "border-PurplishBlue"
-              : "border-gray-300"
+              : "border-gray-300")
           }`}
           onClick={() => handleMembershipChange("pro")}
         >
@@ -76,16 +116,27 @@ const Step2 = ({ onNext, onPrev }) => {
             </div>
           </div>
         </button>
+
+        </div>
+        {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
 
       {/* toggle button begins */}
       <div className="mt-5 w-full flex justify-center  bg-slate-100 rounded-lg py-2">
-      <span class="text-md text-MarineBlue ubuntu-bold flex items-center mr-2">Monthly</span>
-        <label class="relative inline-flex items-center cursor-pointer">
-          
-          <input type="checkbox" value="" class="sr-only peer" />
-          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-          <span class="text-md text-MarineBlue ubuntu-bold flex items-center ml-2">Yearly</span>
+        <span className="text-md text-MarineBlue ubuntu-bold flex items-center mr-2">
+          Monthly
+        </span>
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            value={billingType === "yearly"}
+            className="sr-only peer "
+            onChange={handleBillingTypeChange}
+          />
+          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+          <span className="text-md text-MarineBlue ubuntu-bold flex items-center ml-2">
+            Yearly
+          </span>
         </label>
       </div>
       <div className="mt-10 flex justify-between items-end">

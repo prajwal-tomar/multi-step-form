@@ -1,6 +1,7 @@
 import React from "react";
 
-const Step4 = ({onNext}) => {
+const Step4 = ({ onNext, formData }) => {
+  console.log(formData);
   return (
     <div className="space-y-4">
       <div className="space-y-2">
@@ -13,7 +14,8 @@ const Step4 = ({onNext}) => {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-lg ubuntu-bold text-MarineBlue">
-              Arcade (Monthly)
+              {formData.membershipType} ({formData.billingType}
+              )
             </h1>
             <p className="text-sm text-PurplishBlue hover:underline hover:cursor-pointer">
               Change
@@ -54,8 +56,9 @@ const Step4 = ({onNext}) => {
           type="submit"
           className="bg-PurplishBlue text-white rounded-lg px-4 py-2 mt-12 mr-5"
           onClick={() => {
-            console.log("clicked")
-            onNext()}}
+            console.log("clicked");
+            onNext();
+          }}
         >
           Confirm
         </button>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 
-const Step1 = ({ onNext }) => {
+const Step1 = ({ onNext, formData, setFormData }) => {
   const {
     handleSubmit,
     control,
@@ -10,6 +10,7 @@ const Step1 = ({ onNext }) => {
 
   const onSubmit = (data) => {
     console.log(data);
+    setFormData({ ...formData, ...data });
     onNext();
   };
 
