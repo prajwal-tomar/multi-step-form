@@ -3,7 +3,7 @@ import FormComponent from "./components/FormComponent";
 
 const App = () => {
   return (
-    <div className="w-full min-h-screen bg-LightGray flex items-center justify-center">
+    <div className="w-full min-h-screen bg-LightGray flex md:items-center justify-center">
       <FormComponent />
     </div>
   );
